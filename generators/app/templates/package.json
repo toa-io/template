@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "prepare": "husky",
+    "prepare": "husky || true",
     "features": "cucumber-js",
     "features:production": "FEATURES_ENV=production cucumber-js --tags 'not @local'",
     "ci": "rm -f package-lock.json && rm -rf node_modules && npm exec --workspaces -c \"rm -rf node_modules\" && npm i",
