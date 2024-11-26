@@ -1,0 +1,4 @@
+compositions:
+  - name: mono
+    components:
+      - default.hello

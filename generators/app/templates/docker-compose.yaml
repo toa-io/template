@@ -1,0 +1,17 @@
+name: local
+services:
+  rabbitmq:
+    image: rabbitmq:3.13.6-management
+    ports:
+      - '5682:5672'
+      - '15682:15672'
+    environment:
+      RABBITMQ_DEFAULT_USER: developer
+      RABBITMQ_DEFAULT_PASS: secret
+  mongodb:
+    image: mongo:5.0.28
+    ports:
+      - '27027:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: developer
+      MONGO_INITDB_ROOT_PASSWORD: secret

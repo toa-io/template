@@ -1,0 +1,10 @@
+configuration:
+  identity.tokens:
+    keys:
+      key0: $IDENTITY_TOKENS_KEY0
+  identity.federation:
+    trust:
+      - iss: https://id.<%= project.domain %>/
+        # aud: []
+  identity.basic:
+    principal: root

@@ -1,0 +1,41 @@
+{
+  "name": "<%= project.id %>.toa",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "prepare": "husky",
+    "features": "cucumber-js",
+    "features:production": "FEATURES_ENV=production cucumber-js --tags 'not @local'",
+    "ci": "rm -f package-lock.json && rm -rf node_modules && npm exec --workspaces -c \"rm -rf node_modules\" && npm i",
+    "env": "toa env -p application -i && npm run env:docker",
+    "env:docker": "toa env docker -p application -i --as .env.docker ",
+    "expo": "toa serve exposition --env application/.env",
+    "host": "toa serve exposition --env application/.env & toa compose application/components/* --env application/.env",
+    "recompose": "docker compose down -v && docker compose up -d",
+    "toa:upgrade": "npm i -D @toa.io/agent@alpha @toa.io/runtime@alpha @toa.io/userland@alpha && toa -v",
+    "docker:login": "aws ecr get-login-password --region <%= aws.region %> | docker login --username AWS --password-stdin <%= aws.account %>.dkr.ecr.<%= aws.region %>.amazonaws.com",
+    "deploy": "npm run docker:login && toa deploy production -p application -w -n clearscreen"
+  },
+  "workspaces": [
+    "application/components/*",
+    "application/types"
+  ],
+  "devDependencies": {
+    "@commitlint/cli": "^19.6.0",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@cucumber/cucumber": "^10.9.0",
+    "@cucumber/pretty-formatter": "^1.0.1",
+    "@types/js-yaml": "4.0.9",
+    "@types/node": "20.14.0",
+    "cucumber-tsflow": "^4.4.4",
+    "dotenv": "^16.4.5",
+    "eslint": "^8.57.1",
+    "eslint-config-standard": "17.1.0",
+    "eslint-config-standard-with-typescript": "43.0.1",
+    "fast-glob": "^3.3.2",
+    "husky": "^9.1.7",
+    "js-yaml": "^4.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  }
+}

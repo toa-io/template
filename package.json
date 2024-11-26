@@ -1,0 +1,12 @@
+{
+  "name": "generator-toa",
+  "version": "1.0.0",
+  "description": "Toa application generator",
+  "keywords": [
+    "toa",
+    "generator"
+  ],
+  "dependencies": {
+    "yeoman-generator": "^5.7.2"
+  }
+}

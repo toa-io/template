@@ -1,0 +1,37 @@
+storages: {}
+#  assets:
+#    provider: cloudinary
+#    type: image
+#    environment:
+#    prefix: development
+#    prefix@production: production
+#    transformations:
+#      - extension: (?<width>\d{0,4})x(?<height>\d{0,4})(z(?<zoom>(?:100|\d{1,2})))?(q(?<quality>(?:100|\d{1,2})))?
+#        transformation:
+#          crop: fill
+#          gravity: auto
+#          width: <width>
+#          height: <height>
+#          zoom: <zoom>
+#          quality: <quality>
+#        optional: true
+#      - extension: (?<width>\d{0,4})x(?<height>\d{0,4})!(z(?<zoom>(?:100|\d{1,2})))?(q(?<quality>(?:100|\d{1,2})))?
+#        transformation:
+#          crop: thumb
+#          gravity: face
+#          width: <width>
+#          height: <height>
+#          zoom: <zoom>
+#          quality: <quality>
+#        optional: true
+#      - extension: (?<width>\d{0,4})x(?<height>\d{0,4})\?(z(?<zoom>(?:100|\d{1,2})))?(q(?<quality>(?:100|\d{1,2})))?
+#        transformation:
+#          crop: limit
+#          width: <width>
+#          height: <height>
+#          zoom: <zoom>
+#          quality: <quality>
+#        optional: true
+#      - extension: (?<format>jpeg|webp|png)
+#        transformation:
+#          fetch_format: <format>

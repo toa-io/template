@@ -1,0 +1,9 @@
+name: hello
+
+bridge: bash
+
+exposition:
+  /:
+    anonymous: true
+    io:output: true
+    GET: hello

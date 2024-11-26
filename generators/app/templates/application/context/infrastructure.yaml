@@ -1,0 +1,21 @@
+registry:
+  base@local: localhost:5000
+  base@docker: host.docker.internal:5000
+  base@production: <%= aws.account %>.dkr.ecr.<%= aws.region %>.amazonaws.com
+  platforms: [linux/amd64]
+  platforms@local: ~
+
+amqp:
+  context:
+    .@local: amqp://localhost:5682
+    .@docker: amqp://host.docker.internal:5682
+    .@production: <%= amqp.endpoint %>/<%= project.id %>
+
+mongodb@local: mongodb://localhost:27027
+mongodb@docker: mongodb://host.docker.internal:27027
+mongodb@production: <%= mongodb.endpoint %>/?tls=true&retryWrites=false&readPreference=secondaryPreferred&tlsAllowInvalidCertificates=true&tlsAllowInvalidHostnames=true
+
+telemetry:
+  logs:
+    level: debug
+    level@production: debug # remove once production is stable

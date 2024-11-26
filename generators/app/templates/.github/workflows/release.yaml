@@ -1,0 +1,76 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+    types: [closed]
+    branches:
+      - production
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-east-2
+          role-to-assume: arn:aws:iam::<%= aws.account %>:role/GithubActionsRole
+
+      - name: Login to AWS ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Install `kubectl`
+        uses: azure/setup-kubectl@v4
+        with:
+          version: v1.28.3
+        id: install
+
+      - name: Configure `kubectl`
+        run: |
+          aws eks update-kubeconfig --name yam --region <%= aws.region %> --role-arn arn:aws:iam::<%= aws.account %>:role/<%= aws.role %>
+          kubectl cluster-info
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.11.0
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --omit=dev
+
+      - name: Install Toa Runtime
+        run: |
+          VERSION=$(node -pe "require('./package.json').devDependencies['@toa.io/runtime']")
+          npm install -g "@toa.io/runtime@$VERSION"
+
+      - name: Deploy
+        run: toa deploy production -n <%= project.id %> -p application -w
+
+      - name: Merge to `dev`
+        run: |
+          git fetch
+          git checkout dev
+          git merge ${{ github.base_ref }}
+          git push --all origin --no-verify
+
+      - name: Run Features
+        run: |
+          sleep 15
+          npm i
+          npm run features:production
+        env:
+          PRINCIPAL: ${{ secrets.PRINCIPAL }}

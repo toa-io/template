@@ -1,0 +1,8 @@
+node_modules/
+transpiled/
+coverage/
+.idea/
+.DS_Store
+.env
+*.tsbuildinfo
+lerna-debug.log

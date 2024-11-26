@@ -1,0 +1,17 @@
+exposition:
+  debug@local: true
+  trace@local: true
+  debug@production: true
+  trace@production: true
+
+  authorities:
+    local@local: 127.0.0.1:8000
+    local@production: the.<%= project.domain %>
+
+  class: alb
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/healthcheck-path: /.ready
+    external-dns.alpha.kubernetes.io/hostname: origin.<%= project.domain %>
+    external-dns.alpha.kubernetes.io/ingress-hostname-source: annotation-only
