@@ -12,7 +12,7 @@ export class Identity {
     this.http = http
   }
 
-  @given('a transient identity {word}')
+  @given('transient identity {word}')
   public async transient (as: string): Promise<Principal> {
     await this.http.request(`
       GET /identity/ HTTP/1.1
@@ -32,7 +32,7 @@ export class Identity {
     return { id, token }
   }
 
-  @given('a transient identity')
+  @given('transient identity')
   public async anonymous (): Promise<Principal> {
     return await this.transient('identity')
   }

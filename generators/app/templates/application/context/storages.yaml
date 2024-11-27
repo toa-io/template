@@ -3,8 +3,8 @@ storages: {}
 #    provider: cloudinary
 #    type: image
 #    environment:
-#    prefix: development
-#    prefix@production: production
+#    prefix: <%= project.id %>/development
+#    prefix@production: <%= project.id %>/production
 #    transformations:
 #      - extension: (?<width>\d{0,4})x(?<height>\d{0,4})(z(?<zoom>(?:100|\d{1,2})))?(q(?<quality>(?:100|\d{1,2})))?
 #        transformation:

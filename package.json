@@ -1,6 +1,6 @@
 {
-  "name": "generator-toa",
-  "version": "1.0.0",
+  "name": "generator-toa-app",
+  "version": "1.0.2",
   "description": "Toa application generator",
   "keywords": [
     "toa",
